@@ -1,0 +1,23 @@
+function draw () 
+{
+  createCanvas(windowWidth, windowHeight)
+
+  background(219, 76, 119);
+
+  for(var i = 0; i < windowWidth; i += 100) 
+  {
+
+    if(i%1 == 0) 
+    {
+      //stroke of line
+      stroke(255);
+      //mouse & touch coordinates
+      line(i, mouseX || touches, i, mouseY || touches);
+    }
+    else 
+    {
+      background(255);
+    }
+  }
+  
+}

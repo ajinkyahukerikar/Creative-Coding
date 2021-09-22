@@ -1,10 +1,11 @@
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400);   
+  colorMode(RGB);
+
   //dark purple sky
   noStroke();
   background(134, 0, 125);
    
-  
   //blue
   fill(0, 0, 249);
   rect(0,55,width,100);
@@ -17,11 +18,11 @@ function setup() {
   fill(255, 255, 65);
   rect(0,195,width,100);
     
-  //orange sky
+  //orange
   fill(246, 138, 30);
   rect(0,265,width,100);
   
-  //red sky
+  //red
   fill(209, 34, 41);
   rect(0,335,width,100);
 
@@ -66,20 +67,7 @@ function setup() {
   point(550,39);
   point(589,30);
   
-  
-  colorMode(RGB);
-  //background(190, 221, 241);
-
-  //Activate the three lines below
-  //to put all in a draw fn 
-  //to get updated X, Y values 
-  //for navigation
-  
-// }
-// function draw() {
-//   print(mouseX, mouseY);
-
-  //Skin Color
+  //Skin
   fill(241, 194, 140);
 
   //Ears
@@ -98,17 +86,19 @@ function setup() {
   noStroke();
   ellipse(width / 2.76, 194, 50, 22);
   ellipse(width / 1.6, 194, 50, 22);
+  
   // Iris
   fill(78,53,36);
   stroke(40, 12, 2);
   ellipse(width / 2.76, 194, 22, 22);
   ellipse(width / 1.6, 194, 22, 22);
+  
   // Pupils
   fill(0)
   ellipse(width / 2.76, 194, 12, 12);
   ellipse(width / 1.6, 194, 12, 12);
   
-  //whiteglare
+  //glare
   fill(248,248,248)
   stroke(2, 2, 2);
   ellipse(width / 2.86, 190, 3.5, 3.5);
@@ -123,12 +113,10 @@ function setup() {
   //Right
   bezier(225, 175, 280, 160, 260, 165, 280, 175 );
 
-
   //Nose
   fill(100, 50);
   curve(220, 250, 195, 200, 200, 250, 500, 3);
 
- 
   //Mouth
   //Lips Color
   stroke(225, 166, 161);
@@ -143,7 +131,7 @@ function setup() {
   stroke(0);
     line(169, 290, 233, 290);
 
-  //decided to use a var for y for ease
+  
   var y = height / 1.45 + 2;
   line(168, y, 168, 290);
   line(180, y, 180, 300);
@@ -162,7 +150,7 @@ function setup() {
   rectMode(CORNER);
   arc(width / 2, 110, 170, 100, PI, 0);
 
-    //BANGS
+  //BANGS
   triangle(153, 146, 185, 99, 175, 120);
   triangle(160, 146, 200, 99, 195, 115);
   triangle(200, 146, 240, 98, 216, 112);
@@ -171,6 +159,5 @@ function setup() {
   //SIDEBURNS
   arc(130, 142, 76, 80, 2 * PI / 3, 4.9 * PI / 3);
   arc(270, 140, 76, 85, -2 * PI / 2.9, -4.9 * PI / 3);
- 
 }
 

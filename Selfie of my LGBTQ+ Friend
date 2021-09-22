@@ -1,0 +1,176 @@
+function setup() {
+  createCanvas(400, 400);
+  //dark purple sky
+  noStroke();
+  background(134, 0, 125);
+   
+  
+  //blue
+  fill(0, 0, 249);
+  rect(0,55,width,100);
+  
+  //green
+  fill(0, 121, 64);
+  rect(0,125,width,100);
+   
+  //yellow
+  fill(255, 255, 65);
+  rect(0,195,width,100);
+    
+  //orange sky
+  fill(246, 138, 30);
+  rect(0,265,width,100);
+  
+  //red sky
+  fill(209, 34, 41);
+  rect(0,335,width,100);
+
+  //stars
+  stroke(255);
+  strokeWeight(3);
+  point(15,25);
+  point(39,39);
+  point(75,15);
+  point(69,32);
+  point(85,39);
+  point(119,8);
+  point(129,48);
+  point(135,5);
+  point(149,30);
+  point(175,21);
+  point(199,12);
+  point(209,44);
+  point(215,25);
+  point(242,13);
+  point(255,15);
+  point(269,38);
+  point(329,41);
+  point(330,19);
+  point(349,34);
+  point(345,17);
+  point(359,12);
+  point(399,44);
+  point(442,43);
+  point(455,35);
+  point(469,18);
+  point(429,21);
+  point(437,9);
+  point(509,14);
+  point(545,17);
+  point(559,42);
+  point(599,44);
+  point(459,36);
+  point(480,49);
+  point(379,24);
+  point(245,47);
+  point(550,39);
+  point(589,30);
+  
+  
+  colorMode(RGB);
+  //background(190, 221, 241);
+
+  //Activate the three lines below
+  //to put all in a draw fn 
+  //to get updated X, Y values 
+  //for navigation
+  
+// }
+// function draw() {
+//   print(mouseX, mouseY);
+
+  //Skin Color
+  fill(241, 194, 140);
+
+  //Ears
+  noStroke();
+  //Left
+  arc(104, 200, 40, 60, PI / 3, 3 * PI / 2);
+  //Right
+  arc(290, 200, 50, 60, 3 * PI / 2, PI / 2);
+
+  //Face
+  strokeWeight(0);
+  ellipse(width / 2, height / 2, 200, 280);
+
+  // Eyes
+  fill(255);
+  noStroke();
+  ellipse(width / 2.76, 194, 50, 22);
+  ellipse(width / 1.6, 194, 50, 22);
+  // Iris
+  fill(78,53,36);
+  stroke(40, 12, 2);
+  ellipse(width / 2.76, 194, 22, 22);
+  ellipse(width / 1.6, 194, 22, 22);
+  // Pupils
+  fill(0)
+  ellipse(width / 2.76, 194, 12, 12);
+  ellipse(width / 1.6, 194, 12, 12);
+  
+  //whiteglare
+  fill(248,248,248)
+  stroke(2, 2, 2);
+  ellipse(width / 2.86, 190, 3.5, 3.5);
+  ellipse(width / 1.64, 190, 3.5, 3.5 );
+
+  //Eye Brows
+  fill(50,26,24);
+  strokeWeight(1.5);
+  stroke(3, 7, 1);
+  //Left
+  bezier(172, 175, 140, 160, 160, 165, 120, 175 );
+  //Right
+  bezier(225, 175, 280, 160, 260, 165, 280, 175 );
+
+
+  //Nose
+  fill(100, 50);
+  curve(220, 250, 195, 200, 200, 250, 500, 3);
+
+ 
+  //Mouth
+  //Lips Color
+  stroke(225, 166, 161);
+  //Lips Width
+  strokeWeight(5);
+  //Inner Mouth Color and Shape
+  fill(255);
+  arc(width / 2, height / 1.45, 80, 60, 0, HALF_PI + HALF_PI, PIE);
+
+  //Teeth
+  strokeWeight(0.2);
+  stroke(0);
+    line(169, 290, 233, 290);
+
+  //decided to use a var for y for ease
+  var y = height / 1.45 + 2;
+  line(168, y, 168, 290);
+  line(180, y, 180, 300);
+  line(192, y, 192, 303);
+  line(204, y, 204, 303);
+  line(216, y, 216, 300);
+  line(228, y, 228, 295);
+
+  //Hair
+  //Main
+  rectMode(CENTER);
+  fill(50,26,24);
+  stroke(20);
+  rect(width / 2, 110, 170, 42, 30);
+  //TOP
+  rectMode(CORNER);
+  arc(width / 2, 110, 170, 100, PI, 0);
+
+    //BANGS
+  triangle(153, 146, 185, 99, 175, 120);
+  triangle(160, 146, 200, 99, 195, 115);
+  triangle(200, 146, 240, 98, 216, 112);
+
+  
+  //SIDEBURNS
+  arc(130, 142, 76, 80, 2 * PI / 3, 4.9 * PI / 3);
+  arc(270, 140, 76, 85, -2 * PI / 2.9, -4.9 * PI / 3);
+ 
+}
+

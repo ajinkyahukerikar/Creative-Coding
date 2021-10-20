@@ -1,0 +1,423 @@
+let bColor;
+let weather = "sunny";
+let time = "morning";
+let sunnySky;
+let rainySky;
+let snowySky;
+let button;
+let hc;
+let hs;
+let tsc;
+let Rain;
+let sunColor;
+let sunStroke;
+let Glasses;
+let Sun;
+let Umbrella;
+let Snow;
+let Hat;
+let Scarf;
+let Sunset1;
+let Sunset2;
+let Moon;
+let Stars;
+
+//var serial;
+//var latestData = "waiting for data";
+
+
+function preload(){
+  Rain = loadImage ("rain.gif");
+  Glasses = loadImage ("sunglasses.png");
+  Sun = loadImage ("sunny.png");
+  Umbrella = loadImage ("umbrella.png");
+  Snow = loadImage ("snow.gif");
+  Hat = loadImage ("hat.png");
+  Scarf = loadImage ("scarf2.png");
+  Sunset1 = loadImage ("sunset1.jpg");
+  Sunset2 = loadImage ("sunset2.jpeg");
+  Moon = loadImage ("moon.png");
+  Stars = loadImage ("stars.png");
+}
+
+
+function setup() {
+  createCanvas(400, 400);
+  bColor = "#70E2FF";
+  sunnySky = "#70E2FF";
+  rainySky = "#A1B8BF";
+  snowySky = "#BFD6EE";
+  hc = "#ebd7a3";
+  hs = "#000000";
+  tsc = "#F5F5F5";
+  
+  button = createButton('Check Current Weather!');
+  button.position(20, 20);
+  button.mousePressed(changeWeather);
+
+  button.style("padding","5px");
+  
+  
+  serial= new p5.SerialPort();
+  //serial.open("");
+  serial.on("data", gotData);
+  
+  //let url = 'api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid={09c1bd9f4fad4b2f8ea6ab201470acf5}';
+  //loadJSON(url,gotWeather);
+}
+
+
+function gotData() {
+  var currentString = serial.readLine();
+  trim(currentString);
+  if(!currentString) return;
+  latestData = int(currentString);
+  print (latestData);
+   
+  if (weather == "sunny") {
+    if (currentString<300){
+      time = "morning";
+      bColor ="#70E2FF";
+    }
+   else if (currentString>300 && currentString<500){
+      time = "afternoon";
+      bColor ="#009eff";
+    }
+    else if (currentString>500 && currentString<600){
+      time = "sunset1";
+      bColor ="#3366ff";
+    }
+    else if (currentString>600 && currentString<700){
+      time = "sunset2";
+      bColor ="#3366ff";
+    }
+    else if (currentString>700 && currentString<900){
+      time = "evening";
+      bColor ="#1731b5";
+    }
+    else if (currentString>900 && currentString<1000){
+      time = "night";
+      bColor ="#0b1237";
+  } 
+}
+
+}
+
+
+function draw() {
+  
+   background(bColor);
+  
+  
+  //hair
+  fill("#e3cc54");
+  stroke("#a69230");
+  rect(125,185,140,100);
+  
+    //neck
+   fill("#ebd7a3");
+  stroke("#000000");
+  rect(175,320,40,40);
+  
+   //t-shirt
+   fill("#F5F5F5");
+  stroke("#000000");
+  rect(95,350,200,50);
+  
+    //hair top left
+  fill("#e3cc54");
+  stroke("#a69230");
+  rect(125,250,50,50);
+    
+  //hair top right
+  fill("#e3cc54");
+  stroke("#a69230");
+  rect(215,250,50,50);
+
+  //ears
+  fill("#ebd7a3");
+  stroke("#000000");
+  ellipse (125,255,20,30);
+  ellipse (265,255,20,30);
+   
+  //face
+  fill("#ebd7a3");
+  stroke("#000000");
+  ellipse(195,255,140);
+  arc(195,260, 60, 80, 70, 40);
+  
+  //eyeballs
+  fill("#F5F5F5");
+  stroke("#000000");
+  ellipse(165,240,20);
+  ellipse(225,240,20);
+  
+  //eyebrows
+   fill("#a69230");
+   stroke("#604f2f");
+  triangle(147,219,180,226,185,220);
+  triangle(243,219,211,226,205,220);
+  
+  //nose
+  fill("#f4aebe");
+   stroke("#000000");
+  triangle(185,265,205,265,195,275);
+  
+  //eyes
+  fill("#865519");
+  stroke("#564834");
+  ellipse(160,238,10);
+  ellipse(220,238,10);
+  
+  //blush
+  fill("#fdbdba");
+  stroke("#ea716c");
+  ellipse(240,260,20);
+  ellipse(150,260,20);
+ 
+
+   if (weather == "sunny") {
+     
+       if (time == "morning") {
+      //sun
+      image (Sun, 250, 40, 120, 120);
+      //glasses
+      image (Glasses, 122, 225, 146, 45);
+      }
+      else if (time == "afternoon"){
+      //sun
+      image (Sun, 260, 90, 120, 120);
+      //glasses
+      image (Glasses, 122, 225, 146, 45);
+      }
+      else if (time == "sunset1"){
+        //sunset 1
+        image (Sunset1, 0, 0, 400, 400);
+        //sun
+        image (Sun, 270, 160, 120, 120);
+        //hair
+        fill("#e3cc54");
+        stroke("#a69230");
+        rect(125,185,140,200);
+          //neck
+         fill("#ebd7a3");
+        stroke("#000000");
+        rect(175,320,40,40);
+         //t-shirt
+         fill("#F5F5F5");
+        stroke("#000000");
+        rect(95,350,200,50);
+        stroke("#000000");
+        ellipse(195,255,140);
+        arc(195,260, 60, 80, 70, 40);
+        //hair top left
+        fill("#e3cc54");
+        stroke("#a69230");
+        rect(125,250,50,150);
+        //hair top right
+        fill("#e3cc54");
+        stroke("#a69230");
+        rect(215,250,50,150);
+        //ears
+        fill("#ebd7a3");
+        stroke("#000000");
+        ellipse (125,255,20,30);
+        ellipse (265,255,20,30);
+        //face
+        fill("#ebd7a3");
+        stroke("#000000");
+        ellipse(195,255,140);
+        arc(195,260, 60, 80, 70, 40);
+        //eyebrows
+        fill("#a69230");
+        stroke("#604f2f");
+        triangle(147,219,180,226,185,220);
+        triangle(243,219,211,226,205,220);
+        //nose
+        fill("#f4aebe");
+        stroke("#000000");
+        triangle(185,265,205,265,195,275);
+        //blush
+        fill("#fdbdba");
+        stroke("#ea716c");
+        ellipse(240,260,20);
+        ellipse(150,260,20);
+        //glasses
+        image (Glasses, 122, 225, 146, 45);
+      }
+      else if (time == "sunset2"){
+        //sunset 2
+        image (Sunset2, 0, 0, 400, 400);
+        //sun
+        image (Sun, 280, 270, 100, 100);
+        //hair
+        fill("#e3cc54");
+        stroke("#a69230");
+        rect(125,185,140,200);
+        //neck
+        fill("#ebd7a3");
+        stroke("#000000");
+        rect(175,320,40,40);
+         //t-shirt
+         fill("#F5F5F5");
+        stroke("#000000");
+        rect(95,350,200,50);
+        stroke("#000000");
+        ellipse(195,255,140);
+        arc(195,260, 60, 80, 70, 40);
+        //hair top left
+        fill("#e3cc54");
+        stroke("#a69230");
+        rect(125,250,50,150);
+        //hair top right
+        fill("#e3cc54");
+        stroke("#a69230");
+        rect(215,250,50,150);
+        //ears
+        fill("#ebd7a3");
+        stroke("#000000");
+        ellipse (125,255,20,30);
+        ellipse (265,255,20,30);
+        //face
+        fill("#ebd7a3");
+        stroke("#000000");
+        ellipse(195,255,140);
+        arc(195,260, 60, 80, 70, 40);
+        //eyebrows
+        fill("#a69230");
+        stroke("#604f2f");
+        triangle(147,219,180,226,185,220);
+        triangle(243,219,211,226,205,220);
+        //nose
+        fill("#f4aebe");
+        stroke("#000000");
+        triangle(185,265,205,265,195,275);
+        //blush
+        fill("#fdbdba");
+        stroke("#ea716c");
+        ellipse(240,260,20);
+        ellipse(150,260,20);
+        //glasses
+        image (Glasses, 122, 225, 146, 45);
+        }
+      else if (time == "evening"){
+        //moon
+        image (Moon, 300, 150, 60, 70);
+        //eyeballs
+        fill("#F5F5F5");
+        stroke("#000000");
+        ellipse(165,240,20);
+        ellipse(225,240,20);
+        //eyes
+        fill("#865519");
+        stroke("#564834");
+        ellipse(160,238,10);
+        ellipse(220,238,10);
+      }
+      else if (time == "night"){
+        //stars
+        image (Stars, 0, 0, 400, 400);
+        //moon
+        image (Moon, 250, 50, 100, 110);
+        //hair
+        fill("#e3cc54");
+        stroke("#a69230");
+        rect(125,185,140,200);
+          //neck
+         fill("#ebd7a3");
+        stroke("#000000");
+        rect(175,320,40,40);
+         //t-shirt
+         fill("#F5F5F5");
+        stroke("#000000");
+        rect(95,350,200,50);
+        stroke("#000000");
+        ellipse(195,255,140);
+        arc(195,260, 60, 80, 70, 40);
+        //hair top left
+        fill("#e3cc54");
+        stroke("#a69230");
+        rect(125,250,50,150);
+        //hair top right
+        fill("#e3cc54");
+        stroke("#a69230");
+        rect(215,250,50,150);
+        //ears
+        fill("#ebd7a3");
+        stroke("#000000");
+        ellipse (125,255,20,30);
+        ellipse (265,255,20,30);
+        //face
+        fill("#ebd7a3");
+        stroke("#000000");
+        ellipse(195,255,140);
+        arc(195,260, 60, 80, 70, 40);
+        //eyebrows
+        fill("#a69230");
+        stroke("#604f2f");
+        triangle(147,219,180,226,185,220);
+        triangle(243,219,211,226,205,220);
+        //eyeballs
+        fill("#F5F5F5");
+        stroke("#000000");
+        ellipse(165,240,20);
+        ellipse(225,240,20);
+        //eyes
+        fill("#865519");
+        stroke("#564834");
+        ellipse(160,238,10);
+        ellipse(220,238,10);
+        //nose
+        fill("#f4aebe");
+        stroke("#000000");
+        triangle(185,265,205,265,195,275);
+        //blush
+        fill("#fdbdba");
+        stroke("#ea716c");
+        ellipse(240,260,20);
+        ellipse(150,260,20);
+      }
+     
+  }
+  
+  else if (weather == "rainy"){
+    image (Rain, 20,10,0);
+    image (Rain, 10,200);
+    image (Umbrella, 95, 30, 300, 330, 0, -150);
+    fill(tsc);
+  stroke(hs);
+  rect (250,380,20,20);
+  fill(hc);
+  stroke(hs);
+  ellipse (250,380,40);
+  }
+  
+  else if (weather == "snowy") {
+    image (Snow, 0, 0, 500, 400);
+    image (Scarf, 115, 280, 170, 200);
+    image (Hat, 100, 70, 190, 150);
+  }
+
+  
+}
+ 
+
+function changeWeather() {
+  if (weather == "sunny") {
+    weather = "rainy";
+    bColor = rainySky;
+  }
+  else {
+    if (weather == "rainy") {
+    weather = "snowy";
+    bColor = snowySky; 
+      }
+    else {
+    weather = "sunny";
+     //bColor = sunnySky;
+    }
+  }
+
+
+   
+}

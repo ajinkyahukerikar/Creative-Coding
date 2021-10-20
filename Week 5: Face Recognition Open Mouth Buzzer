@@ -1,0 +1,178 @@
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(220);
+}
+
+var particles = [];
+var arrows = [];
+var numberOfParticles = 0;
+var temp = 0;
+var wind = {
+  angle: 0,
+  speed: 0,
+  vector: null,
+};
+
+Number.prototype.map = function (in_min, in_max, out_min, out_max) {
+  return ((this - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
+};
+
+function calculateHSL(hsb) {
+  // determine the lightness in the range [0,100]
+  var l = ((2 - hsb.s / 100) * hsb.b) / 2;
+  // store the HSL components
+  var hsl = {
+    h: hsb.h,
+    s: (hsb.s * hsb.b) / (l < 50 ? l * 2 : 200 - l * 2),
+    l: l,
+  };
+  // correct a division-by-zero error
+  if (isNaN(hsl.s)) hsl.s = 0;
+  return hsl;
+}
+
+function getHsb(temp) {
+  var hsb = {
+    h: 0,
+    s: 80,
+    b: 85,
+  };
+
+  temp = temp > 32 ? 32 : temp < -10 ? -10 : temp;
+  hsb.h = 200 - temp.map(0, 40, 0, 250);
+  return hsb;
+}
+
+function drawBackground(hsb) {
+  var hsl = calculateHSL(hsb);
+  background(hsb.h, hsb.s, hsb.b);
+  $("body").css(
+    "background",
+    "hsl(" + hsl.h + "," + hsl.s + "%," + hsl.l + "%)"
+  ); // css HSL
+}
+
+function boundCheck(position) {
+  if (position.x > width) position.x = 0;
+  if (position.x < 0) position.x = width;
+  if (position.y > height) position.y = 0;
+  if (position.y < 0) position.y = height;
+}
+
+function Particle() {
+  this.position = createVector(random(width), random(height));
+  this.size = random(15);
+  this.opacity = random(1);
+
+  this.draw = function (speed, i, mouseX, mouseY) {
+    mouse = createVector(mouseX, mouseY);
+    normalizedPosition = this.position.copy();
+    distance = mouse.dist(normalizedPosition);
+
+    repulsion = createVector(
+      normalizedPosition.x - mouse.x - sin(i),
+      normalizedPosition.y - mouse.y - cos(i)
+    );
+    repulsion.normalize();
+
+    if (distance < 30) {
+      this.position.add(repulsion);
+    } else if (distance < 60) {
+      repulsion.div(2);
+      this.position.add(repulsion);
+    } else if (distance < 90) {
+      repulsion.div(3);
+      this.position.add(repulsion);
+    } else if (distance < 120) {
+      repulsion.div(4);
+      this.position.add(repulsion);
+    }
+
+    this.position.add(speed);
+
+    // add some randomness
+    this.position.x = this.position.x + cos(i) / 10;
+    this.position.y = this.position.y + sin(i) / 10;
+    this.size = this.size;
+
+    boundCheck(this.position);
+
+    noStroke();
+    fill(color(25, this.opacity));
+    ellipse(this.position.x, this.position.y, this.size, this.size);
+  };
+}
+
+function setWeather(temperature, windSpeed, windDirection) {
+  temp = floor(temperature);
+
+  if (!windDirection) {
+    windDirection = -90;
+  }
+  if (!windSpeed) {
+    windSpeed = 0.5;
+  }
+
+  // convert to radians and account for meteorological degrees
+  wind.angle = radians(windDirection + 90);
+  wind.speed = Number(windSpeed);
+
+  wind.vector = p5.Vector.fromAngle(wind.angle);
+  // add wind magnitude
+  wind.vector.mult(wind.speed / 3);
+}
+
+function getData() {
+  // temp celsius, wind m/s, wind direction
+  setWeather(parseFloat(4), parseFloat(4), parseFloat(76));
+  addParticles();
+}
+
+function addParticles() {
+  numberOfParticles = floor(width / 10);
+  if (numberOfParticles > 120) {
+    numberOfParticles = 120;
+  }
+
+  for (i = 0; i < numberOfParticles; i++) {
+    particle = new Particle();
+    particles.push(particle);
+  }
+}
+
+function setup() {
+  particles = [];
+  temp = 0;
+
+  createCanvas($(window).width(), $(window).height());
+  getData();
+  colorMode(HSB, 360, 100, 100, 1);
+}
+
+function draw() {
+  hsb = getHsb(temp);
+  drawBackground(hsb);
+
+  for (i = 0; i < numberOfParticles; i++) {
+    particles[i].draw(wind.vector, i, mouseX, mouseY);
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+
+  particles = [];
+
+  numberOfParticles = floor(width / 12);
+  if (numberOfParticles > 150) {
+    numberOfParticles = 150;
+  }
+
+  for (i = 0; i < numberOfParticles; i++) {
+    particle = new Particle();
+    particles.push(particle);
+  }
+}
